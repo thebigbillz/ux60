@@ -1,0 +1,19 @@
+{
+  "name": "60 Days of UX Design",
+  "id": "60-days-ux-design",
+  "api": "1.0.0",
+  "main": "src/code.js",
+  "ui": "src/ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://youtube.com",
+      "https://www.youtube.com"
+    ]
+  }
+}
