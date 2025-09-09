@@ -1,394 +1,567 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>60 Days of UX Design</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
-            height: 100vh;
-            overflow: hidden;
-        }
-        
-        .header {
-            padding: 16px;
-            background: #2a2a2a;
-            border-bottom: 1px solid #333;
-        }
-        
-        .title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .title::before {
-            content: '📅';
-        }
-        
-        .subtitle {
-            font-size: 11px;
-            color: #888;
-            line-height: 1.4;
-        }
-        
-        .filters {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
-            background: #222;
-            border-bottom: 1px solid #333;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        
-        .filters::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .filter-btn {
-            padding: 6px 12px;
-            border: 1px solid #444;
-            background: #333;
-            color: #ccc;
-            border-radius: 16px;
-            font-size: 11px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
-        
-        .filter-btn.active {
-            background: #007acc;
-            border-color: #007acc;
-            color: white;
-        }
-        
-        .filter-btn:hover {
-            background: #444;
-            border-color: #555;
-        }
-        
-        .filter-btn.active:hover {
-            background: #0066aa;
-        }
-        
-        .content {
-            height: calc(100vh - 120px);
-            overflow-y: auto;
-            padding: 0;
-        }
-        
-        .day-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #2a2a2a;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .day-item:hover {
-            background: #252525;
-        }
-        
-        .day-item.completed {
-            background: rgba(0, 122, 204, 0.1);
-        }
-        
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #444;
-            border-radius: 3px;
-            background: transparent;
-            cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-        }
-        
-        .checkbox.checked {
-            background: #007acc;
-            border-color: #007acc;
-        }
-        
-        .checkbox.checked::after {
-            content: '✓';
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .day-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .day-title {
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 2px;
-            color: #fff;
-        }
-        
-        .day-type {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .type-user-research {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-        }
-        
-        .type-wireframe {
-            background: rgba(0, 123, 255, 0.2);
-            color: #007bff;
-        }
-        
-        .type-usability-testing {
-            background: rgba(108, 117, 125, 0.2);
-            color: #6c757d;
-        }
-        
-        .type-visual-design {
-            background: rgba(40, 167, 69, 0.2);
-            color: #28a745;
-        }
-        
-        .type-interaction-design {
-            background: rgba(255, 99, 132, 0.2);
-            color: #ff6384;
-        }
-        
-        .type-whiteboard-challenge {
-            background: rgba(220, 53, 69, 0.2);
-            color: #dc3545;
-        }
-        
-        .video-link {
-            color: #007acc;
-            font-size: 11px;
-            text-decoration: none;
-            opacity: 0.8;
-            cursor: pointer;
-        }
-        
-        .video-link:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-        
-        .progress {
-            padding: 12px 16px;
-            background: #2a2a2a;
-            border-bottom: 1px solid #333;
-            font-size: 11px;
-            color: #888;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: #007acc;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #1a1a1a;
+        color: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 16px;
+        background: #2a2a2a;
+        border-bottom: 1px solid #333;
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .title::before {
+        content: "📅";
+      }
+
+      .subtitle {
+        font-size: 11px;
+        color: #888;
+        line-height: 1.4;
+      }
+
+      .filters {
+        display: flex;
+        gap: 4px;
+        padding: 12px 16px;
+        background: #222;
+        border-bottom: 1px solid #333;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        padding: 6px 12px;
+        border: 1px solid #444;
+        background: #333;
+        color: #ccc;
+        border-radius: 16px;
+        font-size: 11px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+      }
+
+      .filter-btn.active {
+        background: #007acc;
+        border-color: #007acc;
+        color: white;
+      }
+
+      .filter-btn:hover {
+        background: #444;
+        border-color: #555;
+      }
+
+      .filter-btn.active:hover {
+        background: #0066aa;
+      }
+
+      .content {
+        height: calc(100vh - 200px);
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 0;
+      }
+
+      .day-item {
+        padding: 12px 16px;
+        border-bottom: 1px solid #2a2a2a;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .day-item:hover {
+        background: #252525;
+      }
+
+      .day-item.completed {
+        background: rgba(0, 122, 204, 0.1);
+      }
+
+      .checkbox {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #444;
+        border-radius: 3px;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+      }
+
+      .checkbox.checked {
+        background: #007acc;
+        border-color: #007acc;
+      }
+
+      .checkbox.checked::after {
+        content: "✓";
+        position: absolute;
+        top: 0px;
+        left: 2px;
+        color: white;
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .day-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .day-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .day-title {
+        font-size: 12px;
+        font-weight: 300;
+        color: #ddd;
+        margin: 0;
+      }
+
+      .day-type {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .type-user-research {
+        background: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+      }
+
+      .type-wireframe {
+        background: rgba(0, 123, 255, 0.2);
+        color: #007bff;
+      }
+
+      .type-usability-testing {
+        background: rgba(108, 117, 125, 0.2);
+        color: #6c757d;
+      }
+
+      .type-visual-design {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+      }
+
+      .type-interaction-design {
+        background: rgba(255, 99, 132, 0.2);
+        color: #ff6384;
+      }
+
+      .type-whiteboard-challenge {
+        background: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+      }
+
+      .video-link {
+        color: #007acc;
+        font-size: 11px;
+        text-decoration: none;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      .video-link:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .progress {
+        padding: 12px 16px;
+        background: #2a2a2a;
+        border-bottom: 1px solid #333;
+        font-size: 11px;
+        color: #888;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: #333;
+        border-radius: 2px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: #007acc;
+        border-radius: 2px;
+        transition: width 0.3s ease;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div class="title">60 DAYS OF UX DESIGN</div>
-        <div class="subtitle">A thorough list of daily tasks, readings, assignments, and deliverables that can help you grow as a UX Designer.</div>
+      <div class="title">60 DAYS OF UX DESIGN</div>
+      <div class="subtitle">
+        A thorough list of daily tasks, readings, assignments, and deliverables
+        that can help you grow as a UX Designer.
+      </div>
     </div>
-    
+
     <div class="progress">
-        <span id="progress-text">0 of 60 days completed (0%)</span>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-        </div>
+      <span id="progress-text">0 of 60 days completed (0%)</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
     </div>
-    
+
     <div class="filters">
-        <button class="filter-btn active" onclick="setFilter('all')">All</button>
-        <button class="filter-btn" onclick="setFilter('User Research')">User Research</button>
-        <button class="filter-btn" onclick="setFilter('Wireframe')">Wireframes</button>
-        <button class="filter-btn" onclick="setFilter('Usability Testing')">Usability Testing</button>
-        <button class="filter-btn" onclick="setFilter('Visual Design')">Visual Design</button>
-        <button class="filter-btn" onclick="setFilter('Interaction design')">Interaction Design</button>
-        <button class="filter-btn" onclick="setFilter('whiteboard challenge')">Whiteboard Challenge</button>
+      <button
+        class="filter-btn active"
+        id="all-filter"
+        onclick="setFilter('all')"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn"
+        id="user-research-filter"
+        onclick="setFilter('User Research')"
+      >
+        User Research
+      </button>
+      <button
+        class="filter-btn"
+        id="wireframe-filter"
+        onclick="setFilter('Wireframe')"
+      >
+        Wireframes
+      </button>
+      <button
+        class="filter-btn"
+        id="usability-testing-filter"
+        onclick="setFilter('Usability Testing')"
+      >
+        Usability Testing
+      </button>
+      <button
+        class="filter-btn"
+        id="visual-design-filter"
+        onclick="setFilter('Visual Design')"
+      >
+        Visual Design
+      </button>
+      <button
+        class="filter-btn"
+        id="interaction-design-filter"
+        onclick="setFilter('Interaction Design')"
+      >
+        Interaction Design
+      </button>
+      <button
+        class="filter-btn"
+        id="whiteboard-challenge-filter"
+        onclick="setFilter('Whiteboard Challenge')"
+      >
+        Whiteboard Challenge
+      </button>
     </div>
-    
+
     <div class="content" id="content">
-        <!-- Content will be populated by JavaScript -->
+      <!-- Content will be populated by JavaScript -->
     </div>
 
     <script>
-        // Challenge data - replace with your actual YouTube links
-        var challengeData = [
-            { day: 1, type: "User Research", link: "https://youtube.com/watch?v=678s", title: "DAY 1" },
-            { day: 2, type: "Wireframe", link: "https://youtube.com/watch?v=e0yKg", title: "Day 2" },
-            { day: 3, type: "Usability Testing", link: "https://youtube.com/watch?v=LXPyk", title: "DAY 3" },
-            { day: 4, type: "User Research", link: "https://youtube.com/watch?v=Xvzf28", title: "DAY 4" },
-            { day: 5, type: "Wireframe", link: "https://youtube.com/watch?v=Gs5cPo", title: "DAY 5" },
-            { day: 6, type: "Usability Testing", link: "https://youtube.com/watch?v=LXPyk", title: "DAY 6" },
-            { day: 7, type: "Visual Design", link: "https://youtube.com/watch?v=C28ynQ", title: "DAY 7" },
-            { day: 8, type: "Visual Design", link: "https://youtube.com/watch?v=Qnu8bQ", title: "DAY 8" },
-            { day: 9, type: "Interaction design", link: "https://youtube.com/watch?v=&t=28s", title: "DAY 9" },
-            { day: 10, type: "Usability Testing", link: "https://youtube.com/watch?v=LXPyk", title: "DAY 10" },
-            { day: 11, type: "whiteboard challenge", link: "https://youtube.com/watch?v=w2eU58", title: "DAY 11" },
-            { day: 12, type: "whiteboard challenge", link: "https://youtube.com/watch?v=a_zq0g", title: "DAY 12" },
-            { day: 13, type: "User Research", link: "https://youtube.com/watch?v=&t=23s", title: "DAY 13" },
-            { day: 14, type: "Wireframe", link: "https://youtube.com/watch?v=e0yKg", title: "DAY 14" },
-            { day: 15, type: "Usability Testing", link: "https://youtube.com/watch?v=Q&t=1s", title: "DAY 15" }
-        ];
-        
-        // Generate additional days 16-60
-        var types = ["User Research", "Wireframe", "Usability Testing", "Visual Design", "Interaction design", "whiteboard challenge"];
-        for (var i = 16; i <= 60; i++) {
-            challengeData.push({
-                day: i,
-                type: types[Math.floor(Math.random() * types.length)],
-                link: "https://youtube.com/watch?v=example" + i,
-                title: "DAY " + i
-            });
+      var challengeData = [
+        {
+          day: 1,
+          type: "User Research",
+          link: "https://www.youtube.com/watch?v=exyHMFVrZCg&t=678s",
+          title: "Day 1",
+        },
+        {
+          day: 2,
+          type: "Wireframe",
+          link: "https://www.youtube.com/watch?v=KdfO_e0yK-g",
+          title: "Day 2",
+        },
+        {
+          day: 3,
+          type: "Usability Testing",
+          link: "https://www.youtube.com/watch?v=LlbfdLxPpyk",
+          title: "Day 3",
+        },
+        {
+          day: 4,
+          type: "User Research",
+          link: "https://www.youtube.com/watch?v=SLwQxKvzfz8",
+          title: "Day 4",
+        },
+        {
+          day: 5,
+          type: "Wireframe",
+          link: "https://www.youtube.com/watch?v=_jmFuGs5cPo",
+          title: "Day 5",
+        },
+        {
+          day: 6,
+          type: "Usability Testing",
+          link: "https://www.youtube.com/watch?v=LlbfdLxPpyk",
+          title: "Day 6",
+        },
+        {
+          day: 7,
+          type: "Visual Design",
+          link: "https://www.youtube.com/watch?v=wc5krC28ynQ",
+          title: "Day 7",
+        },
+        {
+          day: 8,
+          type: "Visual Design",
+          link: "https://www.youtube.com/watch?v=PSOY7Qnu8bQ",
+          title: "Day 8",
+        },
+        {
+          day: 9,
+          type: "Interaction Design",
+          link: "https://www.youtube.com/watch?v=SnEjLNwyYAI&t=28s",
+          title: "Day 9",
+        },
+        {
+          day: 10,
+          type: "Usability Testing",
+          link: "https://www.youtube.com/watch?v=LlbfdLxPpyk",
+          title: "Day 10",
+        },
+        {
+          day: 11,
+          type: "Whiteboard Challenge",
+          link: "https://www.youtube.com/watch?v=llZoDw2eU58",
+          title: "Day 11",
+        },
+        {
+          day: 12,
+          type: "Whiteboard Challenge",
+          link: "https://www.youtube.com/watch?v=8MQmYa_zq0g",
+          title: "Day 12",
+        },
+        {
+          day: 13,
+          type: "User Research",
+          link: "https://www.youtube.com/watch?v=gGZGDnTY454&t=23s",
+          title: "Day 13",
+        },
+        {
+          day: 14,
+          type: "Wireframe",
+          link: "https://www.youtube.com/watch?v=KdfO_e0yK-g",
+          title: "Day 14",
+        },
+        {
+          day: 15,
+          type: "Usability Testing",
+          link: "https://www.youtube.com/watch?v=0qPMd7SuGfQ&t=1s",
+          title: "Day 15",
+        },
+        {
+          day: 16,
+          type: "Visual Design",
+          link: "https://www.youtube.com/watch?v=eJK1L6E1uFU",
+          title: "Day 16",
+        },
+        {
+          day: 17,
+          type: "Wireframe",
+          link: "https://www.youtube.com/watch?v=6t_dYhXyYjI",
+          title: "Day 17",
+        },
+        {
+          day: 18,
+          type: "Usability Testing",
+          link: "https://www.youtube.com/watch?v=ID0fwi2q028https://www.youtube.com/watch?v=Xn2RvFbQgYs",
+          title: "Day 18",
+        },
+        {
+          day: 19,
+          type: "Visual Design",
+          link: "https://www.youtube.com/watch?v=rO5dBA-avfw&t=298s",
+          title: "Day 19",
+        },
+        {
+          day: 20,
+          type: "Visual Design",
+          link: "https://www.youtube.com/watch?v=a3u9y9IOG68&t=250s",
+          title: "Day 20",
+        },
+      ];
+
+      var completedDays = [];
+      var currentFilter = "all";
+
+      // Load completed days from localStorage
+      try {
+        var saved = localStorage.getItem("ux60-completed");
+        if (saved) {
+          completedDays = JSON.parse(saved);
         }
-        
-        var completedDays = [];
-        var currentFilter = 'all';
-        
-        // Load completed days from localStorage
+      } catch (e) {
+        completedDays = [];
+      }
+
+      function getTypeClass(type) {
+        return "type-" + type.toLowerCase().replace(/\s+/g, "-");
+      }
+
+      function updateProgress() {
+        var completed = completedDays.length;
+        var total = challengeData.length;
+        var percentage = Math.round((completed / total) * 100);
+
+        document.getElementById("progress-text").textContent =
+          completed + " of " + total + " days completed (" + percentage + "%)";
+        document.getElementById("progress-fill").style.width = percentage + "%";
+      }
+
+      function renderDays(filter) {
+        if (!filter) filter = "all";
+
+        var content = document.getElementById("content");
+        var filteredData =
+          filter === "all"
+            ? challengeData
+            : challengeData.filter(function (day) {
+                return day.type === filter;
+              });
+
+        var html = "";
+        for (var i = 0; i < filteredData.length; i++) {
+          var day = filteredData[i];
+          var isCompleted = completedDays.indexOf(day.day) !== -1;
+
+          html +=
+            '<div class="day-item ' + (isCompleted ? "completed" : "") + '">';
+          html += '<div class="day-left">';
+          html +=
+            '<div class="checkbox ' +
+            (isCompleted ? "checked" : "") +
+            '" onclick="toggleComplete(' +
+            day.day +
+            ')"></div>';
+          html += '<div class="day-content">';
+          html += '<div class="day-title">' + day.title + "</div>";
+          html +=
+            '<div class="day-type ' +
+            getTypeClass(day.type) +
+            '">' +
+            day.type +
+            "</div>";
+          html += "</div>";
+          html += "</div>";
+          html +=
+            '<div class="video-link" onclick="openVideo(\'' +
+            day.link +
+            "')\">" +
+            "Watch Video" +
+            "</div>";
+          html += "</div>";
+        }
+
+        content.innerHTML = html;
+      }
+
+      function toggleComplete(dayNumber) {
+        var index = completedDays.indexOf(dayNumber);
+        if (index > -1) {
+          completedDays.splice(index, 1);
+        } else {
+          completedDays.push(dayNumber);
+        }
+
         try {
-            var saved = localStorage.getItem('ux60-completed');
-            if (saved) {
-                completedDays = JSON.parse(saved);
-            }
+          localStorage.setItem("ux60-completed", JSON.stringify(completedDays));
         } catch (e) {
-            completedDays = [];
+          // Handle localStorage errors
         }
-        
-        function getTypeClass(type) {
-            return 'type-' + type.toLowerCase().replace(/\s+/g, '-');
-        }
-        
-        function updateProgress() {
-            var completed = completedDays.length;
-            var total = challengeData.length;
-            var percentage = Math.round((completed / total) * 100);
-            
-            document.getElementById('progress-text').textContent = 
-                completed + ' of ' + total + ' days completed (' + percentage + '%)';
-            document.getElementById('progress-fill').style.width = percentage + '%';
-        }
-        
-        function renderDays(filter) {
-            if (!filter) filter = 'all';
-            
-            var content = document.getElementById('content');
-            var filteredData = filter === 'all' 
-                ? challengeData 
-                : challengeData.filter(function(day) { return day.type === filter; });
-            
-            var html = '';
-            for (var i = 0; i < filteredData.length; i++) {
-                var day = filteredData[i];
-                var isCompleted = completedDays.indexOf(day.day) !== -1;
-                
-                html += '<div class="day-item ' + (isCompleted ? 'completed' : '') + '">';
-                html += '<div class="checkbox ' + (isCompleted ? 'checked' : '') + '" onclick="toggleComplete(' + day.day + ')"></div>';
-                html += '<div class="day-info">';
-                html += '<div class="day-title">' + day.title + '</div>';
-                html += '<div class="day-type ' + getTypeClass(day.type) + '">' + day.type + '</div>';
-                html += '<div class="video-link" onclick="openVideo(\'' + day.link + '\')">' + 'Watch Video' + '</div>';
-                html += '</div>';
-                html += '</div>';
-            }
-            
-            content.innerHTML = html;
-        }
-        
-        function toggleComplete(dayNumber) {
-            var index = completedDays.indexOf(dayNumber);
-            if (index > -1) {
-                completedDays.splice(index, 1);
-            } else {
-                completedDays.push(dayNumber);
-            }
-            
-            try {
-                localStorage.setItem('ux60-completed', JSON.stringify(completedDays));
-            } catch (e) {
-                // Handle localStorage errors
-            }
-            
-            updateProgress();
-            renderDays(currentFilter);
-        }
-        
-        function openVideo(link) {
-            window.open(link, '_blank');
-        }
-        
-        function setFilter(filter) {
-            currentFilter = filter;
-            
-            // Update active filter button
-            var buttons = document.querySelectorAll('.filter-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            
-            // Find and activate the clicked button
-            var buttons = document.querySelectorAll('.filter-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                var btn = buttons[i];
-                if ((filter === 'all' && btn.textContent === 'All') ||
-                    (filter === 'User Research' && btn.textContent === 'User Research') ||
-                    (filter === 'Wireframe' && btn.textContent === 'Wireframes') ||
-                    (filter === 'Usability Testing' && btn.textContent === 'Usability Testing') ||
-                    (filter === 'Visual Design' && btn.textContent === 'Visual Design') ||
-                    (filter === 'Interaction design' && btn.textContent === 'Interaction Design') ||
-                    (filter === 'whiteboard challenge' && btn.textContent === 'Whiteboard Challenge')) {
-                    btn.classList.add('active');
-                    break;
-                }
-            }
-            
-            renderDays(filter);
-        }
-        
-        // Initialize the plugin
+
         updateProgress();
-        renderDays('all');
+        renderDays(currentFilter);
+      }
+
+      function openVideo(link) {
+        window.open(link, "_blank");
+      }
+
+      function setFilter(filter) {
+        currentFilter = filter;
+
+        // Update active filter button
+        var buttons = document.querySelectorAll(".filter-btn");
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove("active");
+        }
+
+        // Find and activate the clicked button
+        var buttons = document.querySelectorAll(".filter-btn");
+        for (var i = 0; i < buttons.length; i++) {
+          var btn = buttons[i];
+          if (
+            (filter === "all" && btn.id === "all-filter") ||
+            (filter === "User Research" && btn.id === "user-research-filter") ||
+            (filter === "Wireframe" && btn.id === "wireframe-filter") ||
+            (filter === "Usability Testing" &&
+              btn.id === "usability-testing-filter") ||
+            (filter === "Visual Design" && btn.id === "visual-design-filter") ||
+            (filter === "Interaction Design" &&
+              btn.id === "interaction-design-filter") ||
+            (filter === "Whiteboard Challenge" &&
+              btn.id === "whiteboard-challenge-filter")
+          ) {
+            btn.classList.add("active");
+            break;
+          }
+        }
+
+        renderDays(filter);
+      }
+
+      // Initialize the plugin
+      updateProgress();
+      renderDays("all");
     </script>
-</body>
+  </body>
 </html>
